@@ -265,10 +265,13 @@ const float MIN_SCALE = 1.0f;
 {
     [super reactSetFrame:frame];
     _pdfView.frame = CGRectMake(0, 0, frame.size.width, frame.size.height);
-    
+    NSMutableArray *mProps = [_changedProps mutableCopy];
+    if (_initialed) {
+        [mProps removeObject:@"path"];
+    }
     _initialed = YES;
     
-    [self didSetProps:_changedProps];
+    [self didSetProps:mProps];
 }
 
 - (void)dealloc{
